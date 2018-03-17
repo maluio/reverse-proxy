@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./my_default.conf:/etc/nginx/conf.d/my_default.conf:ro
+      - ./htpasswd:/etc/nginx/.htpasswd:ro
