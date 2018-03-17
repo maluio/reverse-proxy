@@ -8,4 +8,4 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./my_default.conf:/etc/nginx/conf.d/my_default.conf:ro
-      - ./htpasswd:/etc/nginx/.htpasswd:ro
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro
