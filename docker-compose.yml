@@ -5,7 +5,26 @@ services:
     image: jwilder/nginx-proxy
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./my_default.conf:/etc/nginx/conf.d/my_default.conf:ro
       - ./.htpasswd:/etc/nginx/.htpasswd:ro
+      - /certs:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    depends_on:
+      - reverse-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /certs:/etc/nginx/certs:rw
+    volumes_from:
+      - reverse-proxy
+    #environment:
+    # for using letsencrypt's staging server uncomment:
+    # - ACME_CA_URI=https://acme-staging.api.letsencrypt.org/directory
+    # - DEBUG=true
