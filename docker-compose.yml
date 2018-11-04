@@ -3,6 +3,8 @@ version: '2'
 services:
   reverse-proxy:
     image: jwilder/nginx-proxy
+    env_file:
+      - ../env/global.env
     ports:
       - "80:80"
       - "443:443"
@@ -16,6 +18,8 @@ services:
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
   letsencrypt:
+    env_file:
+      - ../env/global.env
     image: jrcs/letsencrypt-nginx-proxy-companion
     depends_on:
       - reverse-proxy
