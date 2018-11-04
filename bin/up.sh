@@ -8,7 +8,7 @@ then
     exit 1
 fi
 
-if grep -q "NGINXO_COOKIE_PW" vhost.d/default
+if grep -q "NGINX_COOKIE_PW" vhost.d/default
 then
     echo 'Nginx password not set in vhost.d/default'
     exit 1
